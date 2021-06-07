@@ -11,7 +11,6 @@ FEATURE_COLLECTION_DIR = "../usable_data/final_geojson/"
 METADATA_DIR = "../usable_data/final_metadata_animals/"
 FINAL_DEST = "../usable_data/animals_for_mongo/{}_document.json"
 JUST_GEO_DEST = "../usable_data/animals_for_mongo_just_geo/{}_multipoly.geojson"
-filename = "../usable_data/final_geojson/Elk_simplify_auto.geojson"
 
 def to_shapely_object(feature):
     if not feature.get("geometry") or not feature["geometry"].get("type"):
@@ -61,6 +60,7 @@ def convert_file(filename, metadata_dir):
     print(f"processing {animal}...")
     bounds, multipoly = make_multipoly_for_file(filename)
     if not bounds:
+        # RIP berry cave salamander and pigeon mountain salamander
         print(f"No bounds for my friend the {animal} :'(")
         return False
 
@@ -87,5 +87,3 @@ def convert_from_dir(feature_collect_dir=FEATURE_COLLECTION_DIR, metadata_dir=ME
         count += int(convert_file(feature_file, metadata_dir))
     print(f"Did {count} of these guys..")
 convert_from_dir()
-
-# RIP berry cave salamander and pigeon mountain salamander
